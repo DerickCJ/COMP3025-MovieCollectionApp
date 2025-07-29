@@ -5,4 +5,21 @@
     <string name="btn_login">Login</string>
     <string name="btn_register">Register</string>
     <string name="app_logo_description">Application Logo</string>
+
+
+    <!-- Login Page -->
+    <string name="login_title">User Login</string>
+    <string name="hint_email">Email Address</string>
+    <string name="hint_password">Password</string>
+    <string name="btn_go_register">Don\'t have an account? Click to Register</string>
+    <string name="login_failed">Login failed, please check your email and password</string>
+
+    <!-- Register Page -->
+    <string name="register_title">Create Account</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="register_failed">Register failed, please try again</string>
+    <string name="password_not_match">The two passwords entered do not match</string>
+
+
 </resources>
