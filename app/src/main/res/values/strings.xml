@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Movie Collection</string>
+    <string name="welcome_title">Welcome to MC</string>
+    <string name="welcome_subtitle">Record every beloved movie</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_register">Register</string>
+    <string name="app_logo_description">Application Logo</string>
+</resources>
