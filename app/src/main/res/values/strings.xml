@@ -21,5 +21,12 @@
     <string name="register_failed">Register failed, please try again</string>
     <string name="password_not_match">The two passwords entered do not match</string>
 
+    <!-- Movie List Page -->
+    <string name="movie_list_title">My Movie Collection</string>
+    <string name="btn_add_movie">Add Movie</string>
+    <string name="btn_logout">Logout</string>
+    <string name="empty_movie_list">No movies added yet\nClick the button below to add your first movie!</string>
+    <string name="movie_poster">Movie Poster</string>
+
 
 </resources>

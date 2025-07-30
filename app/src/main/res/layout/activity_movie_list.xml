@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient_blue">
+
+    <!-- Header -->
+    <LinearLayout
+        android:id="@+id/layout_header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/header_height"
+        android:background="@drawable/bg_header_gradient"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/margin_xs"
+        android:paddingEnd="@dimen/margin_medium"
+        android:elevation="@dimen/elevation_header">
+
+        <!-- Logo  -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="@dimen/header_logo_size"
+                android:layout_height="@dimen/header_logo_size"
+                android:src="@drawable/movie_logo"
+                android:contentDescription="@string/app_logo_description" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_xs"
+                android:fontFamily="serif"
+                android:text="@string/movie_list_title"
+                android:textAllCaps="false"
+                android:textColor="@color/accent_orange_dark"
+                android:textSize="@dimen/text_size_header"
+                android:textStyle="bold|italic" />
+
+        </LinearLayout>
+
+        <!-- Logout Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/header_button_height"
+            android:fontFamily="serif"
+            android:minWidth="0dp"
+            android:paddingStart="@dimen/text_size_small"
+            android:paddingEnd="@dimen/text_size_small"
+            android:text="@string/btn_logout"
+            android:textColor="@color/red"
+            android:textSize="@dimen/text_size_small"
+            android:textStyle="bold"
+            app:backgroundTint="@color/white"
+            app:cornerRadius="@dimen/button_corner_radius_small" />
+
+    </LinearLayout>
+
+    <!-- Movie List Content Area -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layout_header"
+        android:layout_marginBottom="@dimen/fab_margin_bottom">
+
+        <!-- Movie List -->
+
+        <!-- Empty State -->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_movies"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:padding="@dimen/margin_small" />
+
+        <LinearLayout
+            android:id="@+id/layout_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_large"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="@dimen/empty_icon_size"
+                android:layout_height="@dimen/empty_icon_size"
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:src="@drawable/ic_movie_empty"
+                android:alpha="0.6" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/empty_movie_list"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_size_subtitle"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.5" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <!-- Add Movie Button -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_movie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/fab_margin"
+        android:contentDescription="@string/btn_add_movie"
+        app:srcCompat="@drawable/ic_add"
+        app:backgroundTint="@color/accent_orange"
+        app:elevation="@dimen/elevation_fab"
+        app:fabSize="normal" />
+
+</RelativeLayout>
