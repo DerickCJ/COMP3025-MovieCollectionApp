@@ -1,11 +1,7 @@
-package com.comp3025.moviecollection
+package com.comp3025.moviecollection.view
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.comp3025.moviecollection.databinding.ActivityAddEditBinding
 import com.comp3025.moviecollection.databinding.ActivityMovieListBinding
 
 class MovieList : AppCompatActivity()

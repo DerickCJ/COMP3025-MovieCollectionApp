@@ -1,4 +1,4 @@
-package com.comp3025.moviecollection
+package com.comp3025.moviecollection.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

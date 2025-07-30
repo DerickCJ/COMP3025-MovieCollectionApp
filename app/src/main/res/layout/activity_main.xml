@@ -52,6 +52,8 @@
         android:layout_marginEnd="@dimen/margin_medium">
 
         <!-- Login Button -->
+
+        <!-- Register Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
@@ -64,7 +66,6 @@
             app:cornerRadius="@dimen/button_corner_radius"
             app:elevation="@dimen/elevation_card" />
 
-        <!-- Register Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_register"
             style="@style/Widget.Material3.Button.OutlinedButton"

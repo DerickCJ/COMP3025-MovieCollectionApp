@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "540579072559",
+    "project_id": "comp3025-moviecollectionapp",
+    "storage_bucket": "comp3025-moviecollectionapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:540579072559:android:ca4c529161372f65cf14da",
+        "android_client_info": {
+          "package_name": "com.comp3025.moviecollection"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCltPaq50r6aWvdh0qknBaihyOfBcJq9po"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
