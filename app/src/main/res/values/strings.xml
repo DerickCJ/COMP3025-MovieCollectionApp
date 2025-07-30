@@ -28,5 +28,16 @@
     <string name="empty_movie_list">No movies added yet\nClick the button below to add your first movie!</string>
     <string name="movie_poster">Movie Poster</string>
 
-
+    <!-- Add/Edit Movie Page -->
+    <string name="add_movie">Add Movie</string>
+    <string name="edit_movie">Edit Movie</string>
+    <string name="btn_back">Back</string>
+    <string name="btn_save">Save</string>
+    <string name="poster_preview">Poster Preview</string>
+    <string name="poster_preview_label">Movie Poster</string>
+    <string name="poster_preview_hint">Poster</string>
+    <string name="hint_movie_title">Movie Title</string>
+    <string name="hint_movie_year">Release Year</string>
+    <string name="hint_movie_genre">Genre (e.g. Action, Drama)</string>
+    <string name="hint_imdb_id">IMDB ID (e.g. tt0468569)</string>
 </resources>
