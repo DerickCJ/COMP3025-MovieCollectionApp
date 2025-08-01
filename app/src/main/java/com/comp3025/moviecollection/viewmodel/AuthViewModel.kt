@@ -30,4 +30,8 @@ class AuthViewModel : ViewModel() {
                 }
             }
     }
+    
+    fun logout() {
+        auth.signOut()
+    }
 }

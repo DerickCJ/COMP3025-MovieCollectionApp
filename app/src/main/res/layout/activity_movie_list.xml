@@ -6,68 +6,10 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient_blue">
 
-    <!-- Header -->
-    <LinearLayout
-        android:id="@+id/layout_header"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/header_height"
-        android:background="@drawable/bg_header_gradient"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingStart="@dimen/margin_xs"
-        android:paddingEnd="@dimen/margin_medium"
-        android:elevation="@dimen/elevation_header">
-
-        <!-- Logo  -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-
-            <ImageView
-                android:layout_width="@dimen/header_logo_size"
-                android:layout_height="@dimen/header_logo_size"
-                android:src="@drawable/movie_logo"
-                android:contentDescription="@string/app_logo_description" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_xs"
-                android:fontFamily="serif"
-                android:text="@string/movie_list_title"
-                android:textAllCaps="false"
-                android:textColor="@color/accent_orange_dark"
-                android:textSize="@dimen/text_size_header"
-                android:textStyle="bold|italic" />
-
-        </LinearLayout>
-
-        <!-- Logout Button -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_logout"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/header_button_height"
-            android:fontFamily="serif"
-            android:minWidth="0dp"
-            android:paddingStart="@dimen/text_size_small"
-            android:paddingEnd="@dimen/text_size_small"
-            android:text="@string/btn_logout"
-            android:textColor="@color/red"
-            android:textSize="@dimen/text_size_small"
-            android:textStyle="bold"
-            app:backgroundTint="@color/white"
-            app:cornerRadius="@dimen/button_corner_radius_small" />
-
-    </LinearLayout>
-
     <!-- Movie List Content Area -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/layout_header"
         android:layout_marginBottom="@dimen/fab_margin_bottom">
 
         <!-- Movie List -->
@@ -110,6 +52,20 @@
 
     </FrameLayout>
 
+    <!-- Logout Button -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/fab_add_movie"
+        android:layout_margin="@dimen/fab_margin"
+        android:contentDescription="Logout"
+        app:srcCompat="@drawable/ic_logout"
+        app:backgroundTint="@color/header_gradient_end"
+        app:elevation="@dimen/elevation_fab"
+        app:fabSize="normal" />
+
     <!-- Add Movie Button -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_movie"
@@ -120,7 +76,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:contentDescription="@string/btn_add_movie"
         app:srcCompat="@drawable/ic_add"
-        app:backgroundTint="@color/accent_orange"
+        app:backgroundTint="@color/header_gradient_end"
         app:elevation="@dimen/elevation_fab"
         app:fabSize="normal" />
 
