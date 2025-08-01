@@ -1,5 +1,9 @@
 package com.comp3025.moviecollection.model
 
-class Movie
-{
-}
+data class Movie(
+    val title: String = "",
+    val year: String = "",
+    val imdbID: String = "",
+    val poster: String = "",
+    val genre: String = "",
+)

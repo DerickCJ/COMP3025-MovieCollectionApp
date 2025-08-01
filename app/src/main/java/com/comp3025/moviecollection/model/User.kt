@@ -1,5 +1,7 @@
 package com.comp3025.moviecollection.model
 
-class User
-{
-}
+data class User(
+    val uid: String = "",
+    val email: String = "",
+    val name: String = "",
+)
