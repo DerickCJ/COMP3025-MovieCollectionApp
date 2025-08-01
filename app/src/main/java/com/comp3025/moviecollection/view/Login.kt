@@ -8,6 +8,7 @@ class Login : AppCompatActivity()
 {
     // Using View Binding to access views in the layout
     private lateinit var binding: ActivityLoginBinding
+
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)

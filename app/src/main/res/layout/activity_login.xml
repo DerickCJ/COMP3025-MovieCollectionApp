@@ -98,6 +98,19 @@
             app:backgroundTint="@color/primary_blue"
             app:cornerRadius="@dimen/button_corner_radius" />
 
+        <!-- Cancel Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCancelLogin"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:text="@string/btn_cancel"
+            android:textSize="@dimen/text_size_button"
+            android:textStyle="bold"
+            app:strokeColor="@color/primary_blue"
+            app:strokeWidth="2dp"
+            app:cornerRadius="@dimen/button_corner_radius" />
+
         <!-- Register Link -->
         <TextView
             android:id="@+id/tv_go_register"
