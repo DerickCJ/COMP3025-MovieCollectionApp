@@ -18,4 +18,16 @@ class AuthViewModel : ViewModel() {
                 }
             }
     }
+    
+    fun loginUser(email: String, password: String, callback: (Boolean, String) -> Unit) {
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    callback(true, "Login successful!")
+                } else {
+                    val errorMessage = task.exception?.message ?: "Login failed"
+                    callback(false, errorMessage)
+                }
+            }
+    }
 }
