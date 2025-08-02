@@ -39,4 +39,31 @@ class MovieViewModel : ViewModel() {
                 callback(false, "Failed to save movie: ${exception.message}")
             }
     }
+    
+    fun getMoviesList(callback: (List<Movie>) -> Unit) {
+        // Get current user
+        val currentUser = auth.currentUser
+        if (currentUser == null) {
+            callback(emptyList())
+            return
+        }
+        
+        // Get movies from Firestore
+        firestore.collection("users")
+            .document(currentUser.uid)
+            .collection("movies")
+            .get()
+            .addOnSuccessListener { documents ->
+                val moviesList = mutableListOf<Movie>()
+                for (document in documents) {
+                    val movie = document.toObject(Movie::class.java)
+                    moviesList.add(movie)
+                }
+                callback(moviesList)
+            }
+            .addOnFailureListener {
+                callback(emptyList())
+            }
+    }
+
 }

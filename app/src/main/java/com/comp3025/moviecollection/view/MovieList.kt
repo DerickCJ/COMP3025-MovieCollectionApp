@@ -2,20 +2,30 @@ package com.comp3025.moviecollection.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.comp3025.moviecollection.MainActivity
+import com.comp3025.moviecollection.adapter.MovieAdapter
 import com.comp3025.moviecollection.databinding.ActivityMovieListBinding
+import com.comp3025.moviecollection.model.Movie
 import com.comp3025.moviecollection.viewmodel.AuthViewModel
+import com.comp3025.moviecollection.viewmodel.MovieViewModel
 
 class MovieList : AppCompatActivity()
 {
-    // Using View Binding to access views in the layout
+    // View Binding
     private lateinit var binding: ActivityMovieListBinding
     
-    // ViewModel for authentication
+    // ViewModels
     private lateinit var authViewModel: AuthViewModel
+    private lateinit var movieViewModel: MovieViewModel
+    
+    // RecyclerView
+    private lateinit var movieAdapter: MovieAdapter
+    private val movieList = mutableListOf<Movie>()
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -23,37 +33,43 @@ class MovieList : AppCompatActivity()
         binding = ActivityMovieListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Initialize ViewModel
+        // Initialize ViewModels
         authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
+        movieViewModel = ViewModelProvider(this)[MovieViewModel::class.java]
         
-        setupClickListeners()
-    }
-    
-    private fun setupClickListeners() {
-        // Add movie button click event
+        // Initialize RecyclerView
+        movieAdapter = MovieAdapter(movieList)
+        binding.rvMovies.layoutManager = LinearLayoutManager(this)
+        binding.rvMovies.adapter = movieAdapter
+        
+        // Set button click listeners
         binding.fabAddMovie.setOnClickListener {
-            openAddMoviePage()
+            val intent = Intent(this, AddEdit::class.java)
+            startActivity(intent)
         }
-        
-        // Logout button click event
         binding.fabLogout.setOnClickListener {
-            logout()
+            authViewModel.logout()
+            Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        
+        // Load movies from Firestore
+        loadMovies()
+    }
+    
+    private fun loadMovies() {
+        movieViewModel.getMoviesList { movies ->
+            movieList.clear()
+            movieList.addAll(movies)
+            movieAdapter.notifyDataSetChanged()
+            Log.i("MovieList", "Found ${movies.size} movies")
         }
     }
     
-    private fun openAddMoviePage() {
-        // Create intent to open AddEdit activity
-        val intent = Intent(this, AddEdit::class.java)
-        startActivity(intent)
-    }
-    
-    private fun logout() {
-        authViewModel.logout()
-        Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show()
-        
-        // Go back to main page
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        finish()
+    override fun onResume() {
+        super.onResume()
+        loadMovies()
     }
 }
