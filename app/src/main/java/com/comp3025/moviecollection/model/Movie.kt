@@ -5,5 +5,4 @@ data class Movie(
     val year: String = "",
     val imdbID: String = "",
     val poster: String = "",
-    val genre: String = "",
 )

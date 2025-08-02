@@ -33,11 +33,20 @@
     <string name="edit_movie">Edit Movie</string>
     <string name="btn_back">Back</string>
     <string name="btn_save">Save</string>
-    <string name="poster_preview">Poster Preview</string>
-    <string name="poster_preview_label">Movie Poster</string>
-    <string name="poster_preview_hint">Poster</string>
     <string name="hint_movie_title">Movie Title</string>
     <string name="hint_movie_year">Release Year</string>
-    <string name="hint_movie_genre">Genre (e.g. Action, Drama)</string>
-    <string name="hint_imdb_id">IMDB ID (e.g. tt0468569)</string>
+    <string name="hint_poster_url">Poster URL</string>
+    <string name="hint_imdb_id">IMDB ID (optional)</string>
+    
+    <!-- Field Labels -->
+    <string name="label_movie_title">Movie Title:</string>
+    <string name="label_release_year">Release Year:</string>
+    <string name="label_poster_url">Poster URL:</string>
+    <string name="label_imdb_id">IMDB ID:</string>
+    
+    <!-- Hints -->
+    <string name="hint_enter_movie_title">Enter movie title</string>
+    <string name="hint_enter_release_year">Enter release year</string>
+    <string name="hint_enter_poster_url">Enter poster image URL</string>
+    <string name="hint_enter_imdb_id">Enter IMDB ID (optional)</string>
 </resources>

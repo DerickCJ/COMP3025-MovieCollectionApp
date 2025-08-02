@@ -30,10 +30,21 @@ class MovieList : AppCompatActivity()
     }
     
     private fun setupClickListeners() {
+        // Add movie button click event
+        binding.fabAddMovie.setOnClickListener {
+            openAddMoviePage()
+        }
+        
         // Logout button click event
         binding.fabLogout.setOnClickListener {
             logout()
         }
+    }
+    
+    private fun openAddMoviePage() {
+        // Create intent to open AddEdit activity
+        val intent = Intent(this, AddEdit::class.java)
+        startActivity(intent)
     }
     
     private fun logout() {
