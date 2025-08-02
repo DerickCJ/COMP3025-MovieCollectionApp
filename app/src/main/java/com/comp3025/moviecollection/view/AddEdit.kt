@@ -14,6 +14,9 @@ class AddEdit : AppCompatActivity()
     
     // ViewModel for movie operations
     private lateinit var movieViewModel: MovieViewModel
+    
+    private var isEditMode = false
+    private var originalImdbID = ""
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -24,7 +27,30 @@ class AddEdit : AppCompatActivity()
         // Initialize ViewModel
         movieViewModel = ViewModelProvider(this)[MovieViewModel::class.java]
         
+        // Check if this is edit mode and load data
+        checkEditMode()
+        
         setupClickListeners()
+    }
+    
+    private fun checkEditMode() {
+        isEditMode = intent.getBooleanExtra("isEdit", false)
+        
+        if (isEditMode) {
+            val title = intent.getStringExtra("title") ?: ""
+            val year = intent.getStringExtra("year") ?: ""
+            val poster = intent.getStringExtra("poster") ?: ""
+            val imdbID = intent.getStringExtra("imdbID") ?: ""
+            
+            // Save original imdbID for update operation
+            originalImdbID = imdbID
+            
+            // Fill the form with existing data
+            binding.etTitle.setText(title)
+            binding.etYear.setText(year)
+            binding.etPoster.setText(poster)
+            binding.etImdbId.setText(imdbID)
+        }
     }
     
     private fun setupClickListeners() {
@@ -64,13 +90,25 @@ class AddEdit : AppCompatActivity()
             return
         }
         
-        // Save movie to Firestore
-        movieViewModel.addMovie(title, year, poster, imdbId) { success, message ->
-            if (success) {
-                Toast.makeText(this, "Movie saved successfully!", Toast.LENGTH_SHORT).show()
-                finish()
-            } else {
-                Toast.makeText(this, "Failed to save movie: $message", Toast.LENGTH_LONG).show()
+        if (isEditMode) {
+            // Update movie
+            movieViewModel.updateMovie(originalImdbID, title, year, poster, imdbId) { success, message ->
+                if (success) {
+                    Toast.makeText(this, "Movie updated successfully!", Toast.LENGTH_SHORT).show()
+                    finish()
+                } else {
+                    Toast.makeText(this, "Failed to update movie: $message", Toast.LENGTH_LONG).show()
+                }
+            }
+        } else {
+            // Add new movie
+            movieViewModel.addMovie(title, year, poster, imdbId) { success, message ->
+                if (success) {
+                    Toast.makeText(this, "Movie saved successfully!", Toast.LENGTH_SHORT).show()
+                    finish()
+                } else {
+                    Toast.makeText(this, "Failed to save movie: $message", Toast.LENGTH_LONG).show()
+                }
             }
         }
     }

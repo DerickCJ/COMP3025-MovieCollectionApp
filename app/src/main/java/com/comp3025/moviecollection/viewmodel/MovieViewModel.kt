@@ -65,5 +65,47 @@ class MovieViewModel : ViewModel() {
                 callback(emptyList())
             }
     }
+    
+    fun updateMovie(oldImdbID: String, title: String, year: String, poster: String, imdbId: String, callback: (Boolean, String) -> Unit) {
+        // Get current user
+        val currentUser = auth.currentUser
+        if (currentUser == null) {
+            callback(false, "User not logged in")
+            return
+        }
+        
+        // Find and update the movie by old imdbID
+        firestore.collection("users")
+            .document(currentUser.uid)
+            .collection("movies")
+            .whereEqualTo("imdbID", oldImdbID)
+            .get()
+            .addOnSuccessListener { documents ->
+                if (documents.isEmpty) {
+                    callback(false, "Movie not found")
+                    return@addOnSuccessListener
+                }
+                
+                // Update the first matching document
+                val document = documents.documents[0]
+                val updatedMovie = mapOf(
+                    "title" to title,
+                    "year" to year,
+                    "poster" to poster,
+                    "imdbID" to imdbId
+                )
+                
+                document.reference.update(updatedMovie)
+                    .addOnSuccessListener {
+                        callback(true, "Movie updated successfully!")
+                    }
+                    .addOnFailureListener { exception ->
+                        callback(false, "Failed to update movie: ${exception.message}")
+                    }
+            }
+            .addOnFailureListener { exception ->
+                callback(false, "Failed to find movie: ${exception.message}")
+            }
+    }
 
 }
