@@ -99,10 +99,10 @@ class MovieList : AppCompatActivity()
     // Edit movie function
     private fun editMovie(movie: Movie) {
         val intent = Intent(this, AddEdit::class.java).apply {
-            putExtra("movieTitle", movie.title)
-            putExtra("movieYear", movie.year)
-            putExtra("moviePoster", movie.poster)
-            putExtra("movieImdbID", movie.imdbID)
+            putExtra("title", movie.title)
+            putExtra("year", movie.year)
+            putExtra("poster", movie.poster)
+            putExtra("imdbID", movie.imdbID)
             putExtra("isEdit", true)
         }
         startActivity(intent)

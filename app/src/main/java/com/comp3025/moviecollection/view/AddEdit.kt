@@ -29,10 +29,19 @@ class AddEdit : AppCompatActivity()
         
         // Check if this is edit mode and load data
         checkEditMode()
-        
+        setupObservers()
         setupClickListeners()
     }
-    
+
+    private fun setupObservers() {
+        // Observe the operation completion status
+        movieViewModel.operationCompleted.observe(this) { completed ->
+            if (completed) {
+                movieViewModel.resetOperationStatus()
+                finish() // Close the activity after saving
+            }
+        }
+    }
     private fun checkEditMode() {
         isEditMode = intent.getBooleanExtra("isEdit", false)
         
@@ -94,10 +103,10 @@ class AddEdit : AppCompatActivity()
             // Update movie
             movieViewModel.updateMovie(originalImdbID, title, year, poster, imdbId)
 
+
         } else {
             // Add new movie
             movieViewModel.addMovie(title, year, poster, imdbId)
         }
-        finish()
     }
 }

@@ -13,6 +13,10 @@ class MovieViewModel : ViewModel() {
     private val _movieList = MutableLiveData<List<Movie>>()
     val movieList: LiveData<List<Movie>> = _movieList
 
+    // Livedata to hold the operation completion status
+    private val _operationCompleted = MutableLiveData<Boolean>()
+    val operationCompleted: LiveData<Boolean> = _operationCompleted
+
     // Get the movie list from the API
     fun getMoviesList()
     {
@@ -29,6 +33,7 @@ class MovieViewModel : ViewModel() {
             if (success) {
                 getMoviesList()
             }
+            _operationCompleted.value = true
         }
     }
 
@@ -45,6 +50,7 @@ class MovieViewModel : ViewModel() {
             if (success) {
                 getMoviesList()
             }
+            _operationCompleted.value = true
         }
     }
 
@@ -56,5 +62,10 @@ class MovieViewModel : ViewModel() {
                 getMoviesList()
             }
         }
+    }
+
+    // Reset the operation status
+    fun resetOperationStatus() {
+        _operationCompleted.value = false
     }
 }
