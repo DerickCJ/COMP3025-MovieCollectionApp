@@ -92,24 +92,12 @@ class AddEdit : AppCompatActivity()
         
         if (isEditMode) {
             // Update movie
-            movieViewModel.updateMovie(originalImdbID, title, year, poster, imdbId) { success, message ->
-                if (success) {
-                    Toast.makeText(this, "Movie updated successfully!", Toast.LENGTH_SHORT).show()
-                    finish()
-                } else {
-                    Toast.makeText(this, "Failed to update movie: $message", Toast.LENGTH_LONG).show()
-                }
-            }
+            movieViewModel.updateMovie(originalImdbID, title, year, poster, imdbId)
+
         } else {
             // Add new movie
-            movieViewModel.addMovie(title, year, poster, imdbId) { success, message ->
-                if (success) {
-                    Toast.makeText(this, "Movie saved successfully!", Toast.LENGTH_SHORT).show()
-                    finish()
-                } else {
-                    Toast.makeText(this, "Failed to save movie: $message", Toast.LENGTH_LONG).show()
-                }
-            }
+            movieViewModel.addMovie(title, year, poster, imdbId)
         }
+        finish()
     }
 }

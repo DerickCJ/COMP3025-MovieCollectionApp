@@ -18,14 +18,12 @@ class MovieList : AppCompatActivity()
 {
     // View Binding
     private lateinit var binding: ActivityMovieListBinding
-    
     // ViewModels
     private lateinit var authViewModel: AuthViewModel
     private lateinit var movieViewModel: MovieViewModel
-    
     // RecyclerView
     private lateinit var movieAdapter: MovieAdapter
-    private val movieList = mutableListOf<Movie>()
+
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -33,20 +31,61 @@ class MovieList : AppCompatActivity()
         binding = ActivityMovieListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initializeViewModels()
+        setupRecyclerView()
+        setupObservers()
+        setupClickListeners()
+        // Load movies from Database
+        movieViewModel.getMoviesList()
+
+    }
+
+
         // Initialize ViewModels
-        authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
-        movieViewModel = ViewModelProvider(this)[MovieViewModel::class.java]
-        
+    private fun initializeViewModels()
+        {
+            authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
+            movieViewModel = ViewModelProvider(this)[MovieViewModel::class.java]
+        }
+
+    // Setup RecyclerView and its adapter
+    private fun setupRecyclerView(){
         // Initialize RecyclerView
-        movieAdapter = MovieAdapter(movieList)
-        binding.rvMovies.layoutManager = LinearLayoutManager(this)
-        binding.rvMovies.adapter = movieAdapter
-        
-        // Set button click listeners
+        movieAdapter = MovieAdapter(
+            onEditClick = { movie -> editMovie(movie) },
+            onDeleteClick = { movie, position -> movieViewModel.deleteMovie(movie) }
+        )
+
+        with (binding.rvMovies) {
+            layoutManager = LinearLayoutManager(this@MovieList)
+            adapter = movieAdapter
+        }
+    }
+
+    // Setup observers for ViewModel
+    private fun setupObservers() {
+        // Observe movie list changes
+        movieViewModel.movieList.observe(this) { movies ->
+            movieAdapter.updateMovies(movies)
+        }
+        // Observe authentication state
+        authViewModel.isLoggedIn.observe(this) { isLoggedIn ->
+            if (!isLoggedIn) {
+                Toast.makeText(this, "Please Login", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, Login::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
+    }
+
+    // Setup click listeners for buttons
+    private fun setupClickListeners() {
         binding.fabAddMovie.setOnClickListener {
             val intent = Intent(this, AddEdit::class.java)
             startActivity(intent)
         }
+
         binding.fabLogout.setOnClickListener {
             authViewModel.logout()
             Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show()
@@ -54,22 +93,26 @@ class MovieList : AppCompatActivity()
             startActivity(intent)
             finish()
         }
-        
-        // Load movies from Firestore
-        loadMovies()
     }
-    
-    private fun loadMovies() {
-        movieViewModel.getMoviesList { movies ->
-            movieList.clear()
-            movieList.addAll(movies)
-            movieAdapter.notifyDataSetChanged()
-            Log.i("MovieList", "Found ${movies.size} movies")
+
+
+    // Edit movie function
+    private fun editMovie(movie: Movie) {
+        val intent = Intent(this, AddEdit::class.java).apply {
+            putExtra("movieTitle", movie.title)
+            putExtra("movieYear", movie.year)
+            putExtra("moviePoster", movie.poster)
+            putExtra("movieImdbID", movie.imdbID)
+            putExtra("isEdit", true)
         }
+        startActivity(intent)
     }
-    
+
     override fun onResume() {
         super.onResume()
-        loadMovies()
+        movieViewModel.getMoviesList() // Refresh movie list when returning to this activity
     }
+
+
+   
 }

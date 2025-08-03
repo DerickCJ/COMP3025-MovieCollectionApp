@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.comp3025.moviecollection.databinding.ActivityRegisterBinding
 import com.comp3025.moviecollection.viewmodel.AuthViewModel
+import com.comp3025.moviecollection.model.AppUser
 
 class Register: AppCompatActivity()
 {
@@ -24,9 +25,22 @@ class Register: AppCompatActivity()
         
         // Initialize ViewModel
         authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
-        
-        // Setup button click listeners
+
+        setupObservers()
         setupClickListeners()
+    }
+
+    private fun setupObservers() {
+        // Observe login state from ViewModel
+        authViewModel.isLoggedIn.observe(this) { isLoggedIn ->
+            if (isLoggedIn) {
+                // If user is already logged in, navigate to MovieList
+                Toast.makeText(this, "Registration successful! Please login", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, Login::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
     }
     
     private fun setupClickListeners() {
@@ -46,23 +60,13 @@ class Register: AppCompatActivity()
         val password = binding.etPassword.text.toString()
         val confirmPassword = binding.etConfirmPassword.text.toString()
         
-        if (!validateInput(email, password, confirmPassword)) {
-            return
+        if (validateInput(email, password, confirmPassword)) {
+            // Create AppUser object
+            val user = AppUser(email = email)
+            // Call ViewModel to register user
+            authViewModel.registerUser(user, password)
         }
-        
-        // Call ViewModel to register user
-        authViewModel.registerUser(email, password) { success, message ->
-            if (success) {
-                Toast.makeText(this, "Registration successful! Please login", Toast.LENGTH_SHORT).show()
-                // Navigate to login page
-                val intent = Intent(this, Login::class.java)
-                startActivity(intent)
-                finish()
-                
-            } else {
-                Toast.makeText(this, "Registration failed: $message", Toast.LENGTH_LONG).show()
-            }
-        }
+
     }
     
     private fun validateInput(email: String, password: String, confirmPassword: String): Boolean {

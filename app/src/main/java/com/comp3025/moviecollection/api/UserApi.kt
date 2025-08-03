@@ -9,6 +9,7 @@ object UserApi
     private val auth = FirebaseAuth.getInstance()
     private val firestore = FirebaseFirestore.getInstance()
 
+
     fun registerUser(user: AppUser, password: String, callback: (Boolean, String) -> Unit) {
         auth.createUserWithEmailAndPassword(user.email, password)
             .addOnCompleteListener { task ->
@@ -16,7 +17,7 @@ object UserApi
                     val uid = auth.currentUser?.uid ?: ""
                     val fullUser = user.copy(uid = uid)
 
-                    // 写入完整用户信息到 Firestore
+
                     firestore.collection("users")
                         .document(uid)
                         .set(fullUser)

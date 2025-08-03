@@ -24,8 +24,21 @@ class Login : AppCompatActivity()
 
         // Initialize ViewModel
         authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
-        
+
+        setupObservers()
         setupClickListeners()
+    }
+
+    private fun setupObservers() {
+        // Observe login state from ViewModel
+        authViewModel.isLoggedIn.observe(this) { isLoggedIn ->
+            if (isLoggedIn) {
+                // If user is already logged in, navigate to MovieList
+                val intent = Intent(this, MovieList::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
     }
     
     private fun setupClickListeners() {
@@ -50,19 +63,8 @@ class Login : AppCompatActivity()
         val email = binding.etEmail.text.toString().trim()
         val password = binding.etPassword.text.toString()
         
-        if (!validateInput(email, password)) {
-            return
-        }
-        
-        authViewModel.loginUser(email, password) { success, message ->
-            if (success) {
-                Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, MovieList::class.java)
-                startActivity(intent)
-                finish()
-            } else {
-                Toast.makeText(this, "Login failed: $message", Toast.LENGTH_LONG).show()
-            }
+        if (validateInput(email, password)) {
+            authViewModel.loginUser(email, password)
         }
     }
     
