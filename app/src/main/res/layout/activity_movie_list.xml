@@ -63,7 +63,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:contentDescription="Logout"
         app:srcCompat="@drawable/ic_logout"
-        app:backgroundTint="@color/header_gradient_end"
+        app:backgroundTint="@color/accent_orange"
         app:elevation="@dimen/elevation_fab"
         app:fabSize="normal" />
 
@@ -77,7 +77,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:contentDescription="@string/btn_add_movie"
         app:srcCompat="@drawable/ic_add"
-        app:backgroundTint="@color/header_gradient_end"
+        app:backgroundTint="@color/primary_blue"
         app:elevation="@dimen/elevation_fab"
         app:fabSize="normal" />
 

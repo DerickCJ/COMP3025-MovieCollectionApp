@@ -36,6 +36,7 @@ class Register: AppCompatActivity()
             if (isLoggedIn) {
                 // If user is already logged in, navigate to MovieList
                 Toast.makeText(this, "Registration successful! Please login", Toast.LENGTH_SHORT).show()
+                authViewModel.logout()
                 val intent = Intent(this, Login::class.java)
                 startActivity(intent)
                 finish()
